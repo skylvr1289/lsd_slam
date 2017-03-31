@@ -1,0 +1,19 @@
+##lsd slam+tum_ardrone build .. rosmake.
+1. install opencv 3.4.8
+2. follow steps at: http://visbot.blogspot.in/2014/11/tutorial-building-of-lsd-slam-on-ros.html
+3. copied yaml files in /home/abhkumku/.ros/camera_info/front.yaml & back.yaml for ardron_driver.
+4. created camera config files as described at the lsd_slam github page.: front.cfg/front.yaml
+%%%%%%%%%%% front.cfg %%%%%%%%%%%%
+%%  0.89044 1.58 0.5178 0.377 -0.526629354780687  0.274357114262035 0.0211426202132638  -0.0063942451330052 //fx/w fy/h cx/w cy/h k1 k2 p1 p2 
+%%  640 360 // input image size
+%%  full //image resize  crop
+%%  640 352 //image size should be multiple of 16 for lsd_slam. so, 360-->352
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+############### Runing the lsd slam ###################
+rosrun lsd_slam_viewer viewer
+rosrun lsd_slam_core live_slam /image:=/ardrone/front/image_raw _calib:=front.cfg
+
+### to view the image
+rosrun image_view image_view image:=/ardrone/image_raw
+
